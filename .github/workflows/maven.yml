@@ -30,7 +30,7 @@ jobs:
     - name: Check style
       uses: axel-op/googlejavaformat-action@v3
       with:
-        args: "--dry-run"      
+        args: "--dry-run --lines --offset"      
 #       with:
 #         args: "--set-exit-if-changed"
 #       with:
