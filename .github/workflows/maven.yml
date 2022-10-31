@@ -29,13 +29,13 @@ jobs:
         cache: maven
     - name: Check style
       uses: axel-op/googlejavaformat-action@v3
+      with:
+        args: "--dry-run"      
 #       with:
 #         args: "--set-exit-if-changed"
-      with:
-        args: "--replace"
-        skip-commit: true
-    - name: Print diffs
-      run: git --no-pager diff --exit-code
+#       with:
+#         args: "--replace"
+#         skip-commit: true
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
