@@ -4,11 +4,25 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-public class Main {
+public final class Main {
 
-    private static final String format = "name = %8s, isUp = %5b, isVirtual = %5b, isLoopback = %5b\n";
+    /**
+     * Закрытый потому что утилитарный.
+     */
+    private Main() {
+    }
 
-    public static void main(String[] args) throws SocketException {
+    /**
+     * Формат отображения.
+     */
+    private static final String FORMAT = "name = %8s, isUp = %5b, isVirtual = %5b, isLoopback = %5b\n";
+
+    /**
+     * main метод.
+     * @param args не используются
+     * @throws SocketException привнесён {@link java.net.NetworkInterface#getNetworkInterfaces()}
+     */
+    public static void main(final String[] args) throws SocketException {
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
         while (networkInterfaces.hasMoreElements()) {
             var networkInterface = networkInterfaces.nextElement();
@@ -16,8 +30,8 @@ public class Main {
         }
     }
 
-    private static void printInfo(NetworkInterface nwi) throws SocketException {
-        System.out.format(format, nwi.getName(), nwi.isUp(),  nwi.isVirtual(), nwi.isLoopback());
+    private static void printInfo(final NetworkInterface nwi) throws SocketException {
+        System.out.format(FORMAT, nwi.getName(), nwi.isUp(),  nwi.isVirtual(), nwi.isLoopback());
     }
 
 }
