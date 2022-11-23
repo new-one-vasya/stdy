@@ -49,12 +49,16 @@ public class Client {
                 } else if (key.isReadable()) {
                     buffer.clear();
                     channel.read(buffer);
-                    System.out.println("Received = " + new String(buffer.array()));
+                    int position = buffer.position();
+                    System.out.println("Received = " + new String(buffer.array(), 0, position));
+                    selector.selectedKeys().remove(key);
+                    key.interestOps(SelectionKey.OP_WRITE);
                 } else if (key.isWritable()) {
                     String line = queue.poll();
                     if (line != null) {
                         channel.write(ByteBuffer.wrap(line.getBytes()));
                     }
+                    selector.selectedKeys().remove(key);
                     key.interestOps(SelectionKey.OP_READ);
                 }
             }

@@ -29,7 +29,7 @@ public class Server {
         serverChannel.socket().bind(new InetSocketAddress(ADDRESS, PORT));
         selector = SelectorProvider.provider().openSelector();
         serverChannel.register(selector, SelectionKey.OP_ACCEPT);
-        new Thread(worker).run();
+        new Thread(worker).start();
     }
 
 
@@ -57,15 +57,12 @@ public class Server {
                 SelectionKey key = keys.next();
                 keys.remove();
                 if (!key.isValid()) {
-                    continue;
-                }
-                if (key.isAcceptable()) {
+//                    continue;
+                } else if (key.isAcceptable()) {
                     accept(key);
-                }
-                if (key.isReadable()) {
+                } else if (key.isReadable()) {
                     read(key);
-                }
-                if (key.isWritable()) {
+                } else if (key.isWritable()) {
                     write(key);
                 }
             }
