@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>lesson4</module>
+        <module>nio-test</module>
     </modules>
     <packaging>pom</packaging>
 
