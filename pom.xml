@@ -6,8 +6,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>lesson4</module>
+        <module>lesson5</module>
     </modules>
     <packaging>pom</packaging>
+
+<!--    https://github.com/apache/nifi/blob/master/nifi-commons/nifi-socket-utils/src/main/java/org/apache/nifi/io/nio/ChannelListener.java#L122 -->
+<!--    https://www.tabnine.com/code/java/methods/java.nio.channels.DatagramChannel/register -->
+<!--    http://cs.baylor.edu/~donahoo/practical/JavaSockets2/code/UDPEchoServerSelector.java -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
