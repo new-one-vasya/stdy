@@ -5,6 +5,7 @@ https://developer.android.com/reference/java/nio/channels/DatagramChannel
 https://www.programcreek.com/java-api-examples/?api=java.nio.channels.DatagramChannel
 https://www.tutorialspoint.com/java_nio/java_nio_datagram_channel.htm
 
+https://avaldes.com/java-nio-selectors-using-nio-client-server-example/
 
 
 import java.io.IOException;
