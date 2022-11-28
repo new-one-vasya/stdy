@@ -65,12 +65,8 @@ public class UDPEchoServerSelector {
         if (clntRec.clientAddress != null) {  // Did we receive something?
             // Register write with the selector
 
-            clntRec.buffer.flip();
+            System.out.println("!" + new String(clntRec.buffer.array(), 0, clntRec.buffer.position()));
 
-            System.out.println("IT -----> ");
-            while (clntRec.buffer.hasRemaining()) {
-                System.out.write(clntRec.buffer.get());
-            }
             System.out.println();
             key.interestOps(SelectionKey.OP_WRITE);
         }
