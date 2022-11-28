@@ -64,7 +64,7 @@ public class Client {
                 } else if (key.isReadable()) {
                     var client = (DatagramChannel) key.channel();
                     client.receive(buffer);
-                    System.out.println(new String(buffer.array(), 0, buffer.position()));
+                    System.out.println("Received:... " + new String(buffer.array(), 0, buffer.position()));
                     buffer.clear();
                     key.interestOps(SelectionKey.OP_WRITE);
                 }

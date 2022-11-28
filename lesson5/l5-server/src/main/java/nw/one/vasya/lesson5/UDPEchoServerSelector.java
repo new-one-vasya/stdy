@@ -60,14 +60,17 @@ public class UDPEchoServerSelector {
     public static void handleRead(SelectionKey key) throws IOException {
         DatagramChannel channel = (DatagramChannel) key.channel();
         ClientRecord clntRec = (ClientRecord) key.attachment();
-        clntRec.buffer.clear();    // Prepare buffer for receiving
-        clntRec.clientAddress = channel.receive(clntRec.buffer);
-        if (clntRec.clientAddress != null) {  // Did we receive something?
+        ByteBuffer buffer = ByteBuffer.allocate(20);
+        SocketAddress clientAddress = channel.receive(buffer);
+        if (clientAddress != null) {  // Did we receive something?
             // Register write with the selector
 
-            System.out.println("!" + new String(clntRec.buffer.array(), 0, clntRec.buffer.position()));
-
-            System.out.println();
+            String str = new String(buffer.array(), 0, buffer.position());
+            System.out.println("!" + str);
+//            channel.send(buffer, clientAddress);
+            clntRec.buffer = str;
+            clntRec.clientAddress = clientAddress;
+            System.out.println("<---");
             key.interestOps(SelectionKey.OP_WRITE);
         }
     }
@@ -75,8 +78,7 @@ public class UDPEchoServerSelector {
     public static void handleWrite(SelectionKey key) throws IOException {
         DatagramChannel channel = (DatagramChannel) key.channel();
         ClientRecord clntRec = (ClientRecord) key.attachment();
-        clntRec.buffer.flip(); // Prepare buffer for sending
-        int bytesSent = channel.send(clntRec.buffer, clntRec.clientAddress);
+        int bytesSent = channel.send(ByteBuffer.wrap(clntRec.buffer.getBytes()), clntRec.clientAddress);
         if (bytesSent != 0) { // Buffer completely written?
             // No longer interested in writes
             key.interestOps(SelectionKey.OP_READ);
@@ -85,6 +87,6 @@ public class UDPEchoServerSelector {
 
     static class ClientRecord {
         public SocketAddress clientAddress;
-        public ByteBuffer buffer = ByteBuffer.allocate(ECHOMAX);
+        public String buffer;
     }
 }
