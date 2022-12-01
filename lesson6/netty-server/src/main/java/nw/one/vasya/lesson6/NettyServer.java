@@ -17,11 +17,7 @@ import nw.one.vasya.lesson6.handler.ServerHandler;
 
 public class NettyServer {
 
-    private final int port;
-
-    public NettyServer(int port) {
-        this.port = port;
-    }
+    public static final int PORT = 8080;
 
     public void run() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -43,7 +39,7 @@ public class NettyServer {
                         }
                     });
 
-            ChannelFuture f = serverBootstrap.bind(port).sync();
+            ChannelFuture f = serverBootstrap.bind(PORT).sync();
 
             f.channel().closeFuture().sync();
         } finally {
@@ -53,6 +49,6 @@ public class NettyServer {
     }
 
     public static void main(String[] args) throws Exception {
-        new NettyServer(8080).run();
+        new NettyServer().run();
     }
 }

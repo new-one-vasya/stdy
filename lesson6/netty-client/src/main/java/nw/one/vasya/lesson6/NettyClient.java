@@ -17,11 +17,11 @@ import java.util.List;
 
 public class NettyClient {
 
+    public static final int PORT = 8080;
+    public static final String HOST = "localhost";
     private static final List<String> COMMANDS = new ArrayList<>(List.of("5:hello", "4:cool", "6:haha"));
 
     public static void main(String[] args) throws Exception {
-        String host = "localhost";
-        int port = 8080;
         EventLoopGroup workerGroup = new NioEventLoopGroup(1);
 
         try {
@@ -41,7 +41,7 @@ public class NettyClient {
             });
 
             ChannelFuture lastWriteFuture = null;
-            Channel channel = bootstrap.connect(host, port).sync().channel();
+            Channel channel = bootstrap.connect(HOST, PORT).sync().channel();
 
             for (String line : COMMANDS) {
                 lastWriteFuture = channel.writeAndFlush(line);
